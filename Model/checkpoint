@@ -1,2 +1,2 @@
-model_checkpoint_path: "V2.ckpt"
-all_model_checkpoint_paths: "V2.ckpt"
+model_checkpoint_path: "V0_delete.ckpt"
+all_model_checkpoint_paths: "V0_delete.ckpt"

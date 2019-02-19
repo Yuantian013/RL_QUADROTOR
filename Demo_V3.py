@@ -128,7 +128,8 @@ class DDPG(object):
             return tf.layers.dense(net_2, 1, trainable=trainable)  # Q(s,a)
 
     def save_result(self):
-        save_path = self.saver.save(self.sess, "Model/V2.ckpt")
+        save_path = self.saver.save(self.sess, "Model/V3.ckpt")
+        # save_path = self.saver.save(self.sess, name)
         print("Save to path: ", save_path)
 
 
@@ -167,7 +168,7 @@ for i in range(MAX_EPISODES):
         a = np.clip(np.random.normal(a, var), -a_bound, a_bound)    # add randomness to action selection for exploration
         if j<=10:
             # a[2]=abs(a[2])
-            a[2] = a_bound[2]
+            # a[2] = a_bound[2]
             desired_state = [[a[0] + env.state[0], a[1] + env.state[1], a[2] + env.state[2]],
                              [a[3] + env.state[3], a[4] + env.state[4], a[5] + env.state[5]], [0, 0, 0.01], 0, 0]
         else:
@@ -204,9 +205,9 @@ for i in range(MAX_EPISODES):
             EWMA_reward[0,i+1]=EWMA_p*EWMA_reward[0,i]+(1-EWMA_p)*ep_reward
             print('Episode:', i, 'step',j,' Reward: %i' % int(ep_reward),"EWMA_step = ",EWMA_step[0,i+1],"EWMA_reward = ",EWMA_reward[0,i+1],s_[0],s_[1],s_[2],'LR',LR_A,'VAR',var,(time.time() - t1))
             if EWMA_reward[0, i + 1] > max_ewma_reward:
-                max_ewma_reward = EWMA_reward[0, i + 1]
-                LR_A *= .8  # learning rate for actor
-                LR_C *= .8  # learning rate for critic
+                max_ewma_reward = min(EWMA_reward[0, i + 1]+50000,750000)
+                LR_A *= .5  # learning rate for actor
+                LR_C *= .5  # learning rate for critic
                 ddpg.save_result()
 
             if ep_reward > max_reward:

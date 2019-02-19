@@ -11,9 +11,9 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 #####################  hyper parameters  ####################
 
 MAX_EPISODES = 20000
-MAX_EP_STEPS =2500
-LR_A = 0.0001    # learning rate for actor
-LR_C = 0.0002    # learning rate for critic
+MAX_EP_STEPS =50000
+LR_A = 0.0001/2    # learning rate for actor
+LR_C = 0.0002/2    # learning rate for critic
 GAMMA = 0.9988   # reward discount
 TAU = 0.01  # soft replacement
 MEMORY_CAPACITY = 50000
@@ -82,7 +82,7 @@ class DDPG(object):
 
         self.sess.run(tf.global_variables_initializer())
         self.saver = tf.train.Saver()
-        self.saver.restore(self.sess, "Model/V1.ckpt")  # 1 0.1 0.5 0.001
+        self.saver.restore(self.sess, "Model/V3.ckpt")  # 1 0.1 0.5 0.001
 
     def choose_action(self, s):
         return self.sess.run(self.a, {self.S: s[np.newaxis, :]})[0]
@@ -151,7 +151,7 @@ for i in range(MAX_EPISODES):
     d_y = []
     d_z = []
     iteration[0,i+1]=i+1
-    s = env.reset()
+    s = env.random_reset()
     ep_reward = 0
     plt.close(fig)
     fig = plt.figure()
@@ -178,7 +178,7 @@ for i in range(MAX_EPISODES):
 
         s = s_
         ep_reward += r
-        if j%100==0:
+        if j%20==0:
             plot_x=(s_[0])
             plot_y=(s_[1])
             plot_z=(s_[2])

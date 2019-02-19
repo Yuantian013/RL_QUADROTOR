@@ -128,7 +128,7 @@ class DDPG(object):
             return tf.layers.dense(net_2, 1, trainable=trainable)  # Q(s,a)
 
     def save_result(self):
-        save_path = self.saver.save(self.sess, "Model/V0_1.ckpt")
+        save_path = self.saver.save(self.sess, "Model/V0_delete.ckpt")
         print("Save to path: ", save_path)
 
 
@@ -140,7 +140,7 @@ a_dim = env.action_space.shape[0]
 a_bound = env.action_space.high
 
 ddpg = DDPG(a_dim, s_dim, a_bound)
-
+ddpg.save_result()
 var =a_bound   # control exploration
 t1 = time.time()
 max_reward=400000
@@ -158,6 +158,8 @@ for i in range(MAX_EPISODES):
     s = env.reset()
     ep_reward = 0
     plt.close(fig)
+    fig = plt.figure()
+    ax = plt.subplot(projection='3d')  # 创建一个三维的绘图工程
     for j in range(MAX_EP_STEPS):
 
         # Add exploration noise
@@ -177,12 +179,12 @@ for i in range(MAX_EPISODES):
 
         s_, r, done,hit= env.policy_step(desired_state)
         ddpg.store_transition(s, a, r/20, s_)
-        plot_x.append(s_[0])
-        plot_y.append(s_[1])
-        plot_z.append(s_[2])
-        d_x.append(desired_state[0][0])
-        d_y.append(desired_state[0][1])
-        d_z.append(desired_state[0][2])
+        # plot_x.append(s_[0])
+        # plot_y.append(s_[1])
+        # plot_z.append(s_[2])
+        # d_x.append(desired_state[0][0])
+        # d_y.append(desired_state[0][1])
+        # d_z.append(desired_state[0][2])
         if ddpg.pointer > MEMORY_CAPACITY:
             var *= .999995    # decay the action randomness
             l_q,l_r=ddpg.learn(LR_A,LR_C,labda)
@@ -195,6 +197,20 @@ for i in range(MAX_EPISODES):
                     labda = 1e-8
             if l_q<-tol:
                 labda = labda/2
+            if j % 20 == 0:
+                plot_x = (s_[0])
+                plot_y = (s_[1])
+                plot_z = (s_[2])
+                # d_x.append(desired_state[0][0])
+                # d_y.append(desired_state[0][1])
+                # d_z.append(desired_state[0][2])
+                ax.scatter(plot_x, plot_y, plot_z, c='r')  # 绘制数据点,颜色是红色
+                # ax.scatter(d_x, d_y, d_z, c='b')
+                ax.set_zlabel('Z')  # 坐标轴
+                ax.set_ylabel('Y')
+                ax.set_xlabel('X')
+                plt.draw()
+                plt.pause(0.000000001)
 
         s = s_
         ep_reward += r
