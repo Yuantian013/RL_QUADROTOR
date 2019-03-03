@@ -146,7 +146,7 @@ t1 = time.time()
 max_reward=400000
 max_ewma_reward=200000
 fig = plt.figure()
-ax = plt.subplot(projection='3d')  # 创建一个三维的绘图工程
+# ax = plt.subplot(projection='3d')  # 创建一个三维的绘图工程
 for i in range(MAX_EPISODES):
     plot_x = []
     plot_y = []
@@ -163,6 +163,7 @@ for i in range(MAX_EPISODES):
     for j in range(MAX_EP_STEPS):
 
         # Add exploration noise
+
 
         a = ddpg.choose_action(s)
         # print(a)

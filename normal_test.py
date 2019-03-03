@@ -227,7 +227,7 @@ plt.close()
 #     s=stateToQd(env.state)
 #     F,M=env.controller(d_s,env.state)
 #     s_,_,_=env.step(F,M)
-#     print(d_s[2])
+#     print(s)
 #     # if abs(s[2][0]-s_[2][0])>S0:
 #     #     S0=abs(s[2][0]-s_[2][0])
 #     # if abs(s[2][1]-s_[2][1])>S1:
@@ -235,7 +235,12 @@ plt.close()
 #     # if abs(s[2][2]-s_[2][2])>S2:
 #     #     S2=abs(s[2][2]-s_[2][2])
 #     t=t+0.005
-#
+#     if abs(s[2][0])>S0:
+#         S0=abs(s[2][0])
+#     if abs(s[2][1])>S1:
+#         S1=abs(s[2][1])
+#     if abs(s[2][2])>S2:
+#         S2=abs(s[2][2])
 #     # print(Fmax,Fmin,M1,M2,M3)
 # #     if abs(s[0]-s_[0])>S0:
 # #         S0=abs(s[0]-s_[0])
@@ -266,3 +271,4 @@ plt.close()
 # #     S=[S0,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12]
 # #     # print(step,s_[0],s_[1],s_[2])
 # # print(S)
+# print(S0,S1,S2)

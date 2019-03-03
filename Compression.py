@@ -4,20 +4,19 @@ import tensorflow as tf
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-from Q_ENV_12 import QUADROTOR as QUADROTOR
+from Q_ENV import QUADROTOR as QUADROTOR
 import os
-from Q_ENV_12 import stateToQd as stateToQd
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 #####################  hyper parameters  ####################
 
 MAX_EPISODES = 20000
-MAX_EP_STEPS =2000
-LR_A = 0.0001/2    # learning rate for actor
-LR_C = 0.0002/2    # learning rate for critic
+MAX_EP_STEPS =2500
+LR_A = 0.00001    # learning rate for actor
+LR_C = 0.00002    # learning rate for critic
 GAMMA = 0.9988   # reward discount
 TAU = 0.01  # soft replacement
-MEMORY_CAPACITY = 50000
+MEMORY_CAPACITY = 25000
 BATCH_SIZE = 256
 labda=10.
 RENDER = True
@@ -33,7 +32,6 @@ EWMA_p=0.95
 EWMA_step=np.zeros((1,MAX_EPISODES+1))
 EWMA_reward=np.zeros((1,MAX_EPISODES+1))
 iteration=np.zeros((1,MAX_EPISODES+1))
-
 ###############################  DDPG  ####################################
 
 class DDPG(object):
@@ -71,7 +69,28 @@ class DDPG(object):
         self.q_lambda =tf.reduce_mean(self.q - self.q_cons)
         # self.q_lambda = tf.reduce_mean(self.q_cons - self.q)
 
-        a_loss = - tf.reduce_mean(self.q) + self.labda * self.q_lambda  # maximize the q
+        compress_ratio = 0.25
+
+        with tf.variable_scope('Actor', reuse=True):
+            weight_l1 = tf.get_variable('l1/kernel')
+        with tf.variable_scope('Actor', reuse=True):
+            weight_l2 = tf.get_variable('l2/kernel')
+        with tf.variable_scope('Actor', reuse=True):
+            weight_l3 = tf.get_variable('l3/kernel')
+        with tf.variable_scope('Actor', reuse=True):
+            weight_a = tf.get_variable('a/kernel')
+
+        a_loss = - tf.reduce_mean(self.q) + self.labda * self.q_lambda \
+                 + compress_ratio * (tf.reduce_sum(tf.norm(weight_l1, axis=1))
+                                     + tf.reduce_sum(tf.norm(weight_l2, axis=1))
+                                     + tf.reduce_sum(tf.norm(weight_l3, axis=1))
+                                     + tf.reduce_sum(tf.norm(weight_a, axis=1))) \
+                 + compress_ratio * (tf.reduce_sum(tf.norm(weight_l1, axis=0))
+                                     + tf.reduce_sum(tf.norm(weight_l2, axis=0))
+                                     + tf.reduce_sum(tf.norm(weight_l3, axis=0))
+                                     + tf.reduce_sum(tf.norm(weight_a, axis=0)))
+
+        # a_loss = - tf.reduce_mean(self.q) + self.labda * self.q_lambda  # maximize the q
 
         self.atrain = tf.train.AdamOptimizer(self.LR_A).minimize(a_loss, var_list=a_params)#以learning_rate去训练，方向是minimize loss，调整列表参数，用adam
 
@@ -83,7 +102,7 @@ class DDPG(object):
 
         self.sess.run(tf.global_variables_initializer())
         self.saver = tf.train.Saver()
-        self.saver.restore(self.sess, "Model/V6_3.ckpt")  # 1 0.1 0.5 0.001
+        self.saver.restore(self.sess, "Model/V3.ckpt")  # 1 0.1 0.5 0.001
 
     def choose_action(self, s):
         return self.sess.run(self.a, {self.S: s[np.newaxis, :]})[0]
@@ -128,20 +147,23 @@ class DDPG(object):
             net_2 = tf.layers.dense(net_1, 128, activation=tf.nn.relu, name='l3', trainable=trainable)  # 原始是30
             return tf.layers.dense(net_2, 1, trainable=trainable)  # Q(s,a)
 
+    def save_result(self):
+        save_path = self.saver.save(self.sess, "Model/V3_compression.ckpt")
+        # save_path = self.saver.save(self.sess, name)
+        print("Save to path: ", save_path)
 
-###############################  training  ####################################
-# env.seed(1)   # 普通的 Policy gradient 方法, 使得回合的 variance 比较大, 所以我们选了一个好点的随机种子
 
+###########################################################################################
 s_dim = env.observation_space.shape[0]
 a_dim = env.action_space.shape[0]
 a_bound = env.action_space.high
 
 ddpg = DDPG(a_dim, s_dim, a_bound)
 
-var =a_bound   # control exploration
+var =0.1*a_bound   # control exploration
 t1 = time.time()
-max_reward=400000
-max_ewma_reward=200000
+max_reward=500000
+max_ewma_reward=250000
 fig = plt.figure()
 ax = plt.subplot(projection='3d')  # 创建一个三维的绘图工程
 for i in range(MAX_EPISODES):
@@ -152,29 +174,19 @@ for i in range(MAX_EPISODES):
     d_y = []
     d_z = []
     iteration[0,i+1]=i+1
-    # s = env.random_reset()
-    # s=env.reset()
-    s=env.high_reset()
+    s = env.random_reset()
     ep_reward = 0
     plt.close(fig)
-    fig = plt.figure()
-    ax = plt.subplot(projection='3d')  # 创建一个三维的绘图工程
     for j in range(MAX_EP_STEPS):
 
         # Add exploration noise
-        qd = stateToQd(s)
 
-        s = np.array(
-            [qd[0][0], qd[0][1], qd[0][2], qd[1][0], qd[1][1], qd[1][2], qd[2][0], qd[2][1], qd[2][2], qd[3][0],
-             qd[3][1], qd[3][2]])
-        print("start",time.time() - t1)
         a = ddpg.choose_action(s)
-        print("end",time.time() - t1)
         # print(a)
         a = np.clip(np.random.normal(a, var), -a_bound, a_bound)    # add randomness to action selection for exploration
         if j<=10:
             # a[2]=abs(a[2])
-            a[2] = a_bound[2]
+            # a[2] = a_bound[2]
             desired_state = [[a[0] + env.state[0], a[1] + env.state[1], a[2] + env.state[2]],
                              [a[3] + env.state[3], a[4] + env.state[4], a[5] + env.state[5]], [0, 0, 0.01], 0, 0]
         else:
@@ -183,41 +195,49 @@ for i in range(MAX_EPISODES):
         # print(desired_state)
 
         s_, r, done,hit= env.policy_step(desired_state)
+        ddpg.store_transition(s, a, r/20, s_)
+        if j % 100 == 0:
+            plot_x.append(s_[0])
+            plot_y.append(s_[1])
+            plot_z.append(s_[2])
+            d_x.append(desired_state[0][0])
+            d_y.append(desired_state[0][1])
+            d_z.append(desired_state[0][2])
+        if ddpg.pointer > MEMORY_CAPACITY:
+            var *= .999995    # decay the action randomness
+            l_q,l_r=ddpg.learn(LR_A,LR_C,labda)
+
+            if l_q>tol:
+                if labda==0:
+                    labda = 1e-8
+                labda = min(labda*2,11)
+                if labda==11:
+                    labda = 1e-8
+            if l_q<-tol:
+                labda = labda/2
 
         s = s_
         ep_reward += r
-        if j%20==0:
-            plot_x=(s_[0])
-            plot_y=(s_[1])
-            plot_z=(s_[2])
-            # d_x.append(desired_state[0][0])
-            # d_y.append(desired_state[0][1])
-            # d_z.append(desired_state[0][2])
-            ax.scatter(plot_x, plot_y, plot_z, c='r')  # 绘制数据点,颜色是红色
-            # ax.scatter(d_x, d_y, d_z, c='b')
-            ax.set_zlabel('Z')  # 坐标轴
-            ax.set_ylabel('Y')
-            ax.set_xlabel('X')
-            plt.draw()
-            plt.pause(0.000000001)
-
         if j == MAX_EP_STEPS - 1:
             EWMA_step[0, i + 1] = EWMA_p * EWMA_step[0, i] + (1 - EWMA_p) * j
             EWMA_reward[0,i+1]=EWMA_p*EWMA_reward[0,i]+(1-EWMA_p)*ep_reward
-            print('Episode:', i, 'step',j,' Reward: %i' % int(ep_reward),"EWMA_step = ",EWMA_step[0,i+1],"EWMA_reward = ",EWMA_reward[0,i+1],s_[0],s_[1],s_[2],(time.time() - t1))
+            print('Episode:', i, 'step',j,' Reward: %i' % int(ep_reward),"EWMA_step = ",EWMA_step[0,i+1],"EWMA_reward = ",EWMA_reward[0,i+1],s_[0],s_[1],s_[2],'LR',LR_A,'VAR',var,(time.time() - t1))
             if EWMA_reward[0, i + 1] > max_ewma_reward:
                 max_ewma_reward = EWMA_reward[0, i + 1]
-                LR_A *= .8  # learning rate for actor
-                LR_C *= .8  # learning rate for critic
+                LR_A *= .9  # learning rate for actor
+                LR_C *= .9  # learning rate for critic
+                ddpg.save_result()
 
             if ep_reward > max_reward:
                 max_reward = ep_reward
-                LR_A *= .8  # learning rate for actor
-                LR_C *= .8  # learning rate for critic
+                LR_A *= .9  # learning rate for actor
+                LR_C *= .9  # learning rate for critic
+                ddpg.save_result()
                 print("max_reward : ", ep_reward)
             else:
                 LR_A *= .99
                 LR_C *= .99
+                # ddpg.save_result()
             break
 
 
@@ -225,12 +245,22 @@ for i in range(MAX_EPISODES):
             EWMA_step[0, i + 1] = EWMA_p * EWMA_step[0, i] + (1 - EWMA_p) * j
             EWMA_reward[0, i + 1] = EWMA_p * EWMA_reward[0, i] + (1 - EWMA_p) * ep_reward
             if hit==1:
-                print('Crush,','Episode:', i, 'step',j,' Reward: %i' % int(ep_reward),"EWMA_step = ",EWMA_step[0,i+1], "EWMA_reward = ", EWMA_reward[0, i + 1],s_[0],s_[1],s_[2],(time.time() - t1))
+                print('Crush,','Episode:', i, 'step',j,' Reward: %i' % int(ep_reward),"EWMA_step = ",EWMA_step[0,i+1], "EWMA_reward = ", EWMA_reward[0, i + 1],s_[0],s_[1],s_[2],'LR',LR_A,'VAR',var,(time.time() - t1))
             else :
                 print('Hit walls,', 'Episode:', i, 'step', j, ' Reward: %i' % int(ep_reward), "EWMA_step = ",
-                      EWMA_step[0, i + 1], "EWMA_reward = ", EWMA_reward[0, i + 1], s_[0], s_[1], s_[2],
+                      EWMA_step[0, i + 1], "EWMA_reward = ", EWMA_reward[0, i + 1], s_[0], s_[1], s_[2],'LR',LR_A,'VAR',var,
                       (time.time() - t1))
             break
+    if ep_reward > 400000:
+        fig = plt.figure()
+        ax = plt.subplot(projection='3d')  # 创建一个三维的绘图工程
+        ax.scatter(plot_x, plot_y, plot_z, c='r')  # 绘制数据点,颜色是红色
+        ax.scatter(d_x, d_y, d_z, c='b')
+        ax.set_zlabel('Z')  # 坐标轴
+        ax.set_ylabel('Y')
+        ax.set_xlabel('X')
+        plt.draw()
+        plt.pause(0.1)
 
 
 print('Running time: ', time.time() - t1)

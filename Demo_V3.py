@@ -128,7 +128,7 @@ class DDPG(object):
             return tf.layers.dense(net_2, 1, trainable=trainable)  # Q(s,a)
 
     def save_result(self):
-        save_path = self.saver.save(self.sess, "Model/V3.ckpt")
+        save_path = self.saver.save(self.sess, "Model/V3_DELETE.ckpt")
         # save_path = self.saver.save(self.sess, name)
         print("Save to path: ", save_path)
 
@@ -186,7 +186,7 @@ for i in range(MAX_EPISODES):
             d_y.append(desired_state[0][1])
             d_z.append(desired_state[0][2])
         if ddpg.pointer > MEMORY_CAPACITY:
-            var *= .9999995    # decay the action randomness
+            var *= .999995    # decay the action randomness
             l_q,l_r=ddpg.learn(LR_A,LR_C,labda)
 
             if l_q>tol:

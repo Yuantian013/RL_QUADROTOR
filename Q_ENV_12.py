@@ -90,10 +90,9 @@ class QUADROTOR(gym.Env):
         xdot_bound = 5
         ydot_bound = 5
         zdot_bound = 1
-        qW_bound = 1
-        qX_bound = 1
-        qY_bound = 1
-        qZ_bound = 0.1
+        a = 1
+        b = 1
+        c = 1
         p_bound = 5
         q_bound = 1
         r_bound = 1
@@ -104,10 +103,9 @@ class QUADROTOR(gym.Env):
             xdot_bound,
             ydot_bound,
             zdot_bound,
-            qW_bound,
-            qX_bound,
-            qY_bound,
-            qZ_bound,
+            a,
+            b,
+            c,
             p_bound,
             q_bound,
             r_bound,])
@@ -316,10 +314,9 @@ class QUADROTOR(gym.Env):
         r = np.sign(r1) * ((10 * r1) ** 2) + np.sign(r2) * ((10 * r2) ** 2) + np.sign(r3) * ((10 * r3) ** 2)
 
 
-
         return self.state, r, done,hit
 
-    def hard_reset_step(self,desire_state):
+    def large_step(self,desire_state):
         hit=0
         F,M=self.controller(desire_state,self.state)
         s_dot = self.quadEOM(0, self.state, F, M)
@@ -327,9 +324,9 @@ class QUADROTOR(gym.Env):
         self.state = s_
 
 
-        done = abs(self.state[0]) > 2 \
-               or abs(self.state[1]) > 2 \
-               or abs(self.state[2]) > 3 \
+        done = abs(self.state[0]) > 5 \
+               or abs(self.state[1]) > 5 \
+               or abs(self.state[2]) > 5 \
                or self.state[2] < 0
 
         done = bool(done)
@@ -338,11 +335,10 @@ class QUADROTOR(gym.Env):
             hit=1
 
 
-        r1 = 2*(0.5 - abs(self.state[0]))   #MIN -3 MAX 1
-        r2 = 2*(0.5 - abs(self.state[1]))    #MIN -3 MAX 1
-        r3 = 2*(0.5 - abs((self.state[2] - 1))) #MIN -2   MAX 1
+        r1 = (1 - abs(self.state[0]))   #MIN -9 MAX 1
+        r2 = (1 - abs(self.state[1]))    #MIN -9 MAX 1
+        r3 = (1 - abs((self.state[2] - 1))) #MIN -7   MAX 1
         r = np.sign(r1) * ((10 * r1) ** 2) + np.sign(r2) * ((10 * r2) ** 2) + np.sign(r3) * ((10 * r3) ** 2)
-
 
 
         return self.state, r, done,hit
@@ -423,22 +419,33 @@ class QUADROTOR(gym.Env):
         self.state[6] = 1
         return self.state
 
+    def hard_reset(self):
+        self.state = np.zeros([13])
+        self.state[0] = np.random.uniform(low=-0.5, high=0.5)
+        self.state[1] = np.random.uniform(low=-1.5, high=1.5)
+        self.state[2] = np.random.uniform(low=0, high=2.5)
+        self.state[3] = np.random.uniform(low=-3, high=3)
+        self.state[4] = np.random.uniform(low=-3, high=3)
+        self.state[5] = np.random.uniform(low=-0.5, high=0.5)
+        self.state[6] = 1
+        return self.state
+
+    def high_reset(self):
+        self.state = np.zeros([13])
+        self.state[0] = np.random.uniform(low=-0.5, high=0.5)
+        self.state[1] = np.random.uniform(low=-0.5, high=0.5)
+        self.state[2] = np.random.uniform(low=0.5, high=1.5)
+        self.state[3] = np.random.uniform(low=-1 ,high=1)
+        self.state[4] = np.random.uniform(low=-1, high=1)
+        self.state[5] = np.random.uniform(low=-0.25, high=0.5)
+        self.state[6] = 1
+        return self.state
+
     def random_reset(self):
         self.state = np.zeros([13])
         self.state[0] = np.random.uniform(low=-0.5, high=0.5)
         self.state[1] = np.random.uniform(low=-0.5, high=0.5)
         # self.state[2] = np.random.uniform(low=0, high=0.5)
-        self.state[6] = 1
-        return self.state
-
-    def hard_reset(self):
-        self.state = np.zeros([13])
-        self.state[0] = np.random.uniform(low=-1.5, high=1.5)
-        self.state[1] = np.random.uniform(low=-1.5, high=1.5)
-        self.state[2] = np.random.uniform(low=0, high=2.5)
-        self.state[0] = np.random.uniform(low=-3, high=3)
-        self.state[1] = np.random.uniform(low=-3, high=3)
-        self.state[2] = np.random.uniform(low=-0.5, high=0.5)
         self.state[6] = 1
         return self.state
 
