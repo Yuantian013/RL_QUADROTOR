@@ -12,7 +12,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 #####################  hyper parameters  ####################
 
 MAX_EPISODES = 20000
-MAX_EP_STEPS =2000
+MAX_EP_STEPS =5000
 LR_A = 0.0001/2    # learning rate for actor
 LR_C = 0.0002/2    # learning rate for critic
 GAMMA = 0.9988   # reward discount
@@ -155,10 +155,12 @@ for i in range(MAX_EPISODES):
     # s = env.random_reset()
     # s=env.reset()
     s=env.high_reset()
+    print(s)
     ep_reward = 0
     plt.close(fig)
     fig = plt.figure()
     ax = plt.subplot(projection='3d')  # 创建一个三维的绘图工程
+
     for j in range(MAX_EP_STEPS):
 
         # Add exploration noise
@@ -167,9 +169,9 @@ for i in range(MAX_EPISODES):
         s = np.array(
             [qd[0][0], qd[0][1], qd[0][2], qd[1][0], qd[1][1], qd[1][2], qd[2][0], qd[2][1], qd[2][2], qd[3][0],
              qd[3][1], qd[3][2]])
-        print("start",time.time() - t1)
+        # print("start",time.time() - t1)
         a = ddpg.choose_action(s)
-        print("end",time.time() - t1)
+        # print("end",time.time() - t1)
         # print(a)
         a = np.clip(np.random.normal(a, var), -a_bound, a_bound)    # add randomness to action selection for exploration
         if j<=10:

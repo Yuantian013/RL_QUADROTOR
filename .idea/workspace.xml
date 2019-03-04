@@ -2,22 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85b0ee38-d58e-4bd5-8373-9f4d383f8b73" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Compression.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo_U_V2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo_V5.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Demo_V6.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Q_ENV_12.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view_para.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo_V0.py" beforeDir="false" afterPath="$PROJECT_DIR$/Demo_V0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Demo_V3.py" beforeDir="false" afterPath="$PROJECT_DIR$/Demo_V3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/V0_delete.ckpt.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/Model/V0_delete.ckpt.data-00000-of-00001" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/V0_delete.ckpt.index" beforeDir="false" afterPath="$PROJECT_DIR$/Model/V0_delete.ckpt.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/V0_delete.ckpt.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Model/V0_delete.ckpt.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/Model/checkpoint" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Q_ENV.py" beforeDir="false" afterPath="$PROJECT_DIR$/Q_ENV.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Q_ENV_12.py" beforeDir="false" afterPath="$PROJECT_DIR$/Q_ENV_12.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TEST.py" beforeDir="false" afterPath="$PROJECT_DIR$/TEST.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/normal_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/normal_test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,7 +20,7 @@
     <SUITE FILE_PATH="coverage/RL_QUADROTOR$Uncertainty.coverage" NAME="Uncertainty Coverage Results" MODIFIED="1550690880892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/RL_QUADROTOR$normal_test.coverage" NAME="normal_test Coverage Results" MODIFIED="1550849635859" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/RL_QUADROTOR$V0.coverage" NAME="V0 Coverage Results" MODIFIED="1550577590194" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/RL_QUADROTOR$TEST.coverage" NAME="TEST Coverage Results" MODIFIED="1551198204454" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/RL_QUADROTOR$TEST.coverage" NAME="TEST Coverage Results" MODIFIED="1551732603446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/RL_QUADROTOR$V6_HIGH.coverage" NAME="V6_HIGH Coverage Results" MODIFIED="1551030969267" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/RL_QUADROTOR$V5_2.coverage" NAME="V5_2 Coverage Results" MODIFIED="1550785496703" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/RL_QUADROTOR$V0_1.coverage" NAME="V3/2 Coverage Results" MODIFIED="1550406331586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -50,8 +38,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Q_ENV.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="521" column="17" lean-forward="true" selection-start-line="521" selection-start-column="17" selection-end-line="521" selection-end-column="17" />
+            <state relative-caret-position="475">
+              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
               <folding>
                 <element signature="e#1912#4294#0" />
               </folding>
@@ -62,8 +50,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Q_ENV_12.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2245">
-              <caret line="437" column="9" selection-start-line="437" selection-start-column="9" selection-end-line="437" selection-end-column="9" />
+            <state relative-caret-position="180">
+              <caret line="12" selection-start-line="12" selection-end-line="34" />
             </state>
           </provider>
         </entry>
@@ -71,7 +59,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/view_para.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
+            <state relative-caret-position="435">
               <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -83,7 +71,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/normal_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
+            <state relative-caret-position="195">
               <caret line="13" column="91" selection-start-line="13" selection-start-column="91" selection-end-line="13" selection-end-column="91" />
             </state>
           </provider>
@@ -101,7 +89,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Compression.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
+            <state relative-caret-position="475">
               <caret line="68" column="18" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
             </state>
           </provider>
@@ -110,8 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TEST.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="171" column="11" selection-start-line="171" selection-start-column="11" selection-end-line="171" selection-end-column="11" />
+            <state relative-caret-position="-89">
+              <caret line="170" column="33" lean-forward="true" selection-start-line="170" selection-start-column="33" selection-end-line="170" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -158,12 +146,12 @@
         <option value="$PROJECT_DIR$/Demo_V3.py" />
         <option value="$PROJECT_DIR$/Demo_V5.py" />
         <option value="$PROJECT_DIR$/normal_test.py" />
-        <option value="$PROJECT_DIR$/Q_ENV.py" />
         <option value="$PROJECT_DIR$/Demo_V6.py" />
-        <option value="$PROJECT_DIR$/Q_ENV_12.py" />
-        <option value="$PROJECT_DIR$/TEST.py" />
         <option value="$PROJECT_DIR$/view_para.py" />
         <option value="$PROJECT_DIR$/Compression.py" />
+        <option value="$PROJECT_DIR$/TEST.py" />
+        <option value="$PROJECT_DIR$/Q_ENV_12.py" />
+        <option value="$PROJECT_DIR$/Q_ENV.py" />
       </list>
     </option>
   </component>
@@ -177,6 +165,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -188,7 +177,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -216,7 +204,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.view_para">
+  <component name="RunManager" selected="Python.TEST">
     <configuration name="TEST" type="PythonConfigurationType" factoryName="Python">
       <module name="RL_QUADROTOR" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -577,12 +565,13 @@
       <updated>1550086169459</updated>
       <workItem from="1550086170747" duration="66275000" />
       <workItem from="1550740186380" duration="38343000" />
-      <workItem from="1551188642988" duration="9235000" />
+      <workItem from="1551188642988" duration="10175000" />
+      <workItem from="1551732462777" duration="1267000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="113853000" />
+    <option name="totallyTimeSpent" value="116060000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -597,7 +586,7 @@
     <frame x="0" y="23" width="1680" height="954" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49925038" visible="true" weight="0.25579977" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49925038" visible="true" weight="0.25885227" />
       <window_info id="Structure" order="1" sideWeight="0.50074965" side_tool="true" weight="0.25274727" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -710,13 +699,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TEST.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="171" column="11" selection-start-line="171" selection-start-column="11" selection-end-line="171" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Demo_U_V2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="371">
@@ -724,16 +706,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/normal_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="13" column="91" selection-start-line="13" selection-start-column="91" selection-end-line="13" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/view_para.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
+        <state relative-caret-position="435">
           <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -741,31 +716,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Q_ENV_12.py">
+    <entry file="file://$PROJECT_DIR$/normal_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2245">
-          <caret line="437" column="9" selection-start-line="437" selection-start-column="9" selection-end-line="437" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Demo_V3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="35" selection-start-line="35" selection-end-line="132" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Compression.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="68" column="18" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Demo_V6.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="15" selection-start-line="20" selection-end-line="20" selection-end-column="15" />
+        <state relative-caret-position="195">
+          <caret line="13" column="91" selection-start-line="13" selection-start-column="91" selection-end-line="13" selection-end-column="91" />
         </state>
       </provider>
     </entry>
@@ -776,10 +730,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Compression.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="68" column="18" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Demo_V3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="35" selection-start-line="35" selection-end-line="132" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Demo_V6.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="15" selection-start-line="20" selection-end-line="20" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TEST.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-89">
+          <caret line="170" column="33" lean-forward="true" selection-start-line="170" selection-start-column="33" selection-end-line="170" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Q_ENV_12.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" selection-start-line="12" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Q_ENV.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="521" column="17" lean-forward="true" selection-start-line="521" selection-start-column="17" selection-end-line="521" selection-end-column="17" />
+        <state relative-caret-position="475">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
           <folding>
             <element signature="e#1912#4294#0" />
           </folding>
